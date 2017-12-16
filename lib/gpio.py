@@ -22,15 +22,16 @@ class Gpio:
 
         sleep(1)
         # set direction
-        os.system("bash -c \"echo \"out\" > %s\"" % get_gpio_direction_file(number))
-        #with open(get_gpio_direction_file(number), "w") as fd:
-        #    fd.write("\"%s\"" % direction)
-        #    #fd.flush()
+        self.change_dir(direction)
 
     def clean(self):
         with open(get_unexport_file(), "w") as unexport:
             unexport.write("%d\n" % self.number)
             unexport.flush()
+
+    def change_dir(self, direction):
+        self.direction = direction
+        os.system("bash -c \"echo \"%s\" > %s\"" % (direction, get_gpio_direction_file(self.number)))
 
     def set(self, value):
         if self.direction != "out":

@@ -3,14 +3,18 @@
 import lib
 from time import sleep
 
-gpio17 = lib.Gpio(17, "out")
 
-print (gpio17)
+#i2c = lib.I2C(17,27)
+#i2c.start()
+#i2c.send(0x55)
+#i2c.stop()
 
-TIME = 0.5
+dis = lib.display(17, 27)
 
-while True:
-    sleep (TIME)
-    gpio17.set(1)
-    sleep (TIME)
-    gpio17.set(0)
+segments = [0xff, 0xff, 0xff, 0xff]
+
+dis.set_brightness(7)
+dis.set_segments(segments, 0)
+
+
+
